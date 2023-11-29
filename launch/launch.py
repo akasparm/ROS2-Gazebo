@@ -9,8 +9,8 @@ from launch.conditions import IfCondition
 
 def generate_launch_description():
     bag_record = LaunchConfiguration('bag_record')
-    ROS2_Gazebo_package_dir = get_package_share_directory('ROS2_Gazebo')
-    gazebo_world_path = ROS2_Gazebo_package_dir + '/worlds/ROS2_Gazebo_world.world'
+    ros2_gazebo_package_dir = get_package_share_directory('ros2_gazebo')
+    gazebo_world_path = ros2_gazebo_package_dir + '/worlds/ros2_gazebo_world.world'
 
     return LaunchDescription([
         DeclareLaunchArgument(
@@ -31,7 +31,7 @@ def generate_launch_description():
         #     output='screen',
         #     arguments=['--verbose', '-s', 'libgazebo_ros_init.so', gazebo_world_path]
         # ),
-        # Launch the ROS2_Gazebo_node
+        # Launch the ros2_gazebo_node
         Node(
             package='ros2_gazebo',
             executable='ros2_gazebo',
