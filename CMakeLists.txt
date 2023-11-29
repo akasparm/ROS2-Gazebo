@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.8)
-project(ROS2_Gazebo)
+project(ros2_gazebo)
 
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
@@ -14,12 +14,12 @@ find_package(geometry_msgs REQUIRED)
 # further dependencies manually.
 # find_package(<dependency> REQUIRED)
 
-add_executable(ROS2_Gazebo src/walker.cpp)
-ament_target_dependencies(ROS2_Gazebo rclcpp geometry_msgs sensor_msgs)
+add_executable(ros2_gazebo src/walker.cpp)
+ament_target_dependencies(ros2_gazebo rclcpp geometry_msgs sensor_msgs)
 
 # Adding the walker node
 install(TARGETS
-  ROS2_Gazebo
+  ros2_gazebo
   DESTINATION lib/${PROJECT_NAME}/
 )
 
