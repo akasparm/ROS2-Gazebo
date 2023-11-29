@@ -33,8 +33,8 @@ def generate_launch_description():
         # ),
         # Launch the ROS2_Gazebo_node
         Node(
-            package='ROS2_Gazebo',
-            executable='ROS2_Gazebo',
+            package='ros2_gazebo',
+            executable='ros2_gazebo',
             output='screen',
         ),
         ExecuteProcess(
