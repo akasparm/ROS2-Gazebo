@@ -3,26 +3,28 @@
 #include <sensor_msgs/msg/laser_scan.hpp>
 
 using std::placeholders::_1;
-using namespace std::chrono_literals;
+using std::chrono::seconds;
+using std::chrono::duration_cast;
 
 class WalkerBot : public rclcpp::Node {
  public:
   WalkerBot()
-      : Node("bot_walker"),
-        linear_velocity_(0.0),
-        angular_velocity_(0.0) {
+      : Node("bot_walker"), linear_velocity_(0.0), angular_velocity_(0.0) {
     this->declare_parameter<float>("safe_distance", 0.8);
     this->get_parameter("safe_distance", safe_distance_);
 
-    laser_scan_subscriber_ = this->create_subscription<sensor_msgs::msg::LaserScan>(
-        "scan", 10, std::bind(&WalkerBot::processLaserScan, this, _1));
+    laser_scan_subscriber_ =
+        this->create_subscription<sensor_msgs::msg::LaserScan>(
+            "scan", 10, std::bind(&WalkerBot::processLaserScan, this, _1));
 
-    velocity_publisher_ = this->create_publisher<geometry_msgs::msg::Twist>("cmd_vel", 10);
+    velocity_publisher_ =
+        this->create_publisher<geometry_msgs::msg::Twist>("cmd_vel", 10);
   }
 
  private:
   void processLaserScan(const sensor_msgs::msg::LaserScan::SharedPtr scan_msg) {
-    for (size_t i = 330; i < 390; ++i) {  // Check the front 60 degrees for obstacles
+    for (size_t i = 330; i < 390;
+         ++i) {  // Check the front 60 degrees for obstacles
       if (scan_msg->ranges[i % 360] < safe_distance_) {
         linear_velocity_ = 0.0;
         angular_velocity_ = 0.1;
@@ -43,7 +45,8 @@ class WalkerBot : public rclcpp::Node {
     velocity_publisher_->publish(twist_msg);
   }
 
-  rclcpp::Subscription<sensor_msgs::msg::LaserScan>::SharedPtr laser_scan_subscriber_;
+  rclcpp::Subscription<sensor_msgs::msg::LaserScan>::SharedPtr
+      laser_scan_subscriber_;
   rclcpp::Publisher<geometry_msgs::msg::Twist>::SharedPtr velocity_publisher_;
   float linear_velocity_;
   float angular_velocity_;
