@@ -29,6 +29,8 @@ Now to build the package go to the root of the ROS2 workspace
 cd ..
 # check the dependencies
 rosdep install -i --from-path src --rosdistro humble -y
+# Source ros2
+source /opt/ros/humble/setup.bash
 # Building the package
 colcon build --packages-select ros2_gazebo
 ```
