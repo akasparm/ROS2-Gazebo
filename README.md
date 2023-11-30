@@ -49,9 +49,6 @@ To run the launch file and start the ros bag file recording,
 export TURTLEBOT3_MODEL=burger
 ```
 ```sh
-cd src/ros2_gazebo/bag\ files
-```
-```sh
 ros2 launch ros2_gazebo launch.py bag_record:=True
 ```
 
